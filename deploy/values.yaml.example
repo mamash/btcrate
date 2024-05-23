@@ -1,0 +1,37 @@
+# values.yaml
+
+# Application settings
+app:
+  image: "mamash/btcrate:latest"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 3000
+
+# PostgreSQL settings
+postgresql:
+  enabled: true
+  image: "postgres:latest"
+  postgresUser: postgres
+  postgresPassword: your_password
+  postgresDatabase: postgres
+  service:
+    port: 5432
+
+# Secrets
+secrets:
+  secretKey: your_secret_key
+
+# Ingress settings
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: btcrate.myorg.com
+  tls:
+    enabled: true
+    email: filip@hajny.net
+
+# Cert-manager settings
+certManager:
+  enabled: true
+  issuerName: letsencrypt

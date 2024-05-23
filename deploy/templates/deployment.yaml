@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-app
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-app
+    spec:
+      containers:
+      - name: btcrate
+        image: {{ .Values.app.image }}
+        ports:
+        - containerPort: {{ .Values.app.service.port }}
+        env:
+        - name: DB_HOST
+          value: {{ .Release.Name }}-postgresql
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: db-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: db-password
+        - name: DB_NAME
+          value: {{ .Values.postgresql.postgresDatabase }}
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: secret-key
