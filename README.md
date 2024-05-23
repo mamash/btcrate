@@ -47,6 +47,17 @@ curl -k -H "Authorization: <token>" https://btcrate.myorg.com/last | jq
 curl -k -H "Authorization: <token>" https://btcrate.myorg.com/retrieve
 ```
 
+## Example output
+
+```
+{
+  "price_eur": 64209,
+  "price_czk": 1587099,
+  "retrieved_at": "2024-05-23T10:00:00.199Z",
+  "request_time": "2024-05-23T10:04:21.522Z"
+}
+```
+
 ## Local deployment with docker-compose
 
 1. Copy `.env.example` to `.env` and edit as needed
